@@ -2,10 +2,8 @@ package net.javaguides.springboot.controller;
 
 import net.javaguides.springboot.SpringbootRestApiApplication;
 import net.javaguides.springboot.bean.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,5 +52,22 @@ public class StudentController {
                                           @RequestParam String firstName,
                                           @RequestParam String lastName){
         return new Student(id,firstName,lastName);
+    }
+    // Spring boot REST API that handle HTTP POST Request
+    // @RequestMapping and @RequestBody
+    @PostMapping("students/create")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId());
+        System.out.println(student.getFirstname());
+        System.out.println(student.getLastname());
+        return student;
+    }
+    // Spring boot REST API that handle HTTP PUT Request - updating existing resource
+    @PutMapping("students/{id}/update")
+    public Student updateStudent(@RequestBody Student student,@PathVariable("id") int studentId){
+        System.out.println(student.getFirstname());
+        System.out.println(student.getLastname());
+        return student;
     }
 }
